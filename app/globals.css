@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light: warm cream + emerald primary + amber accent */
+    --background: 30 33% 98%;            /* #FCFAF8 */
+    --foreground: 220 25% 10%;           /* near-ink */
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 10%;
+
+    --muted: 30 10% 94%;
+    --muted-foreground: 220 12% 32%; /* bumped para ≥7:1 sobre #FCFAF8 */
+
+    --primary: 158 64% 35%;              /* emerald-700 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 10% 94%;
+    --secondary-foreground: 220 25% 10%;
+
+    --accent: 34 96% 52%;                /* amber-500 */
+    --accent-foreground: 220 25% 10%;
+
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 158 64% 35%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 158 64% 35%;
+
+    --radius: 14px;
+  }
+
+  .dark {
+    --background: 220 30% 5%;            /* near-black with cool tint */
+    --foreground: 30 20% 96%;
+
+    --card: 220 22% 9%;
+    --card-foreground: 30 20% 96%;
+
+    --muted: 220 20% 14%;
+    --muted-foreground: 220 10% 65%;
+
+    --primary: 158 70% 45%;              /* brighter emerald in dark */
+    --primary-foreground: 220 30% 5%;
+
+    --secondary: 220 22% 12%;
+    --secondary-foreground: 30 20% 96%;
+
+    --accent: 34 96% 58%;
+    --accent-foreground: 220 30% 5%;
+
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 158 70% 45%;
+    --success-foreground: 220 30% 5%;
+
+    --border: 220 18% 18%;
+    --input: 220 18% 18%;
+    --ring: 158 70% 45%;
+  }
+
+  /* Motion curves — impeccable. Usadas vía utilidades de tailwind. */
+  :root {
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-fast: 160ms;
+    --motion-base: 240ms;
+    --motion-slow: 420ms;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .grid-noise {
+    background-image:
+      radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.04) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  /* Page entrance — aplicada por (app)/layout para suavizar route changes */
+  .animate-page-enter {
+    animation: pageEnter var(--motion-base) var(--ease-out-quart) both;
+  }
+
+  /* Stagger por índice — usar style={{"--i": n}} en cada hijo */
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: pageEnter var(--motion-base) var(--ease-out-quart) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+  }
+
+  .animate-pulse-once {
+    animation: pulseOnce 360ms var(--ease-out-expo);
+  }
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseOnce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* Custom scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 999px;
+}
+
+/* Reduce motion — cancela transforms/keyframes pero deja opacity para evitar flash */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .stagger-item,
+  .animate-page-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

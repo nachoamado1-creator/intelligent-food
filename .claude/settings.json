@@ -1,0 +1,17 @@
+{
+  "extraKnownMarketplaces": {
+    "taste-skill": {
+      "source": {
+        "type": "git",
+        "url": "https://github.com/Leonxlnx/taste-skill.git"
+      }
+    },
+    "anthropic-skills": {
+      "source": {
+        "type": "git",
+        "url": "https://github.com/anthropics/skills.git"
+      }
+    }
+  },
+  "enableAllProjectMcpServers": true
+}
