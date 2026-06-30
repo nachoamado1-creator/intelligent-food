@@ -8,6 +8,7 @@ import LandingHero from "@/components/ui/landing-hero";
 import PickupMoment from "@/components/ui/pickup-moment";
 import HowItWorks from "@/components/ui/how-it-works";
 import { Case } from "@/components/ui/cases-with-infinite-scroll";
+import { ChatbotButton } from "@/components/chatbot-button";
 
 export default function LandingPage() {
   return (
@@ -78,6 +79,8 @@ export default function LandingPage() {
           <span>Tandil, Buenos Aires</span>
         </div>
       </footer>
+
+      <ChatbotButton />
     </main>
   );
 }

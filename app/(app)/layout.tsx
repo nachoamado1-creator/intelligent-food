@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { BottomNav } from "@/components/bottom-nav";
+import { ChatbotButton } from "@/components/chatbot-button";
 import { ProtectedRoute } from "@/components/protected-route";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -16,6 +17,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </div>
+      {/* Subido para no chocar con la dock inferior */}
+      <ChatbotButton className="bottom-28" />
       <BottomNav />
     </ProtectedRoute>
   );
