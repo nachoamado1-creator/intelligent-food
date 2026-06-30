@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight, LogIn, Snowflake } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
+import { AppStoreButton } from "@/components/ui/app-store-button";
+import { PlayStoreButton } from "@/components/ui/play-store-button";
 
 // Hero de marca: la heladera inteligente ES el objeto protagonista.
 // Render de estudio sobre una "vitrina" clara que funciona en light y dark,
@@ -69,6 +71,15 @@ export default function LandingHero() {
                 <LogIn className="h-4 w-4" />
                 Ya tengo cuenta
               </Link>
+            </div>
+
+            {/* Badges de descarga — solo visuales (próximamente) */}
+            <div
+              className="stagger-item mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
+              style={{ "--i": 3.5 } as React.CSSProperties}
+            >
+              <AppStoreButton />
+              <PlayStoreButton />
             </div>
 
             <dl
