@@ -154,20 +154,20 @@ export default function CheckoutPage() {
             Método de pago
           </h2>
 
-          <PaymentOption
-            selected={method === "saldo_grupo"}
-            disabled={!canGroup}
-            onClick={() => canGroup && setMethod("saldo_grupo")}
-            icon={<Wallet className="h-5 w-5" />}
-            title={group ? `Saldo del grupo · ${group.nombre}` : "Sin grupo"}
-            subtitle={
-              group
-                ? canGroup
+          {group && (
+            <PaymentOption
+              selected={method === "saldo_grupo"}
+              disabled={!canGroup}
+              onClick={() => canGroup && setMethod("saldo_grupo")}
+              icon={<Wallet className="h-5 w-5" />}
+              title={`Saldo del grupo · ${group.nombre}`}
+              subtitle={
+                canGroup
                   ? `Disponible ${formatCurrency(groupBalance)}`
                   : `Saldo insuficiente (${formatCurrency(groupBalance)})`
-                : "No pertenecés a ningún grupo."
-            }
-          />
+              }
+            />
+          )}
 
           <PaymentOption
             selected={method === "mercado_pago"}
